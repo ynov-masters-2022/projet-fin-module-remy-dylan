@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import KeepCard from './components/KeepCard';
 
-function App() {
+const App = () => {
+
+  const containerStyle: React.CSSProperties = {
+    padding: '10px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+    gridTemplateRows: '1fr 1fr 1fr 1fr 1fr',
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={containerStyle}>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
+      <KeepCard/>
     </div>
   );
 }
