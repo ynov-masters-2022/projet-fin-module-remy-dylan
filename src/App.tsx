@@ -1,88 +1,89 @@
+import { createContext, useRef } from 'react';
 import './App.css';
+import AddNoteCard from './components/AddNoteCard';
 import KeepCard from './components/KeepCard';
 import TestAnimate from './components/TestAnimate';
-import Card from './components/Card';
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from 'react';
 import { SlideshowItem } from './components/SlideShowItem'
-import { ContentCard ,ContentCardProps} from './components/ContentCard';
+import { ContentCard} from './components/ContentCard';
+
+
+interface KeepNote {
+  noteTitle: string;
+  noteContent: string;
+}
+const keepCards: KeepNote[] = [
+  {
+    noteTitle: 'Todolist',
+    noteContent: 'Pay speeding ticket, call grandma, resign gym '
+  },
+  {
+    noteTitle: 'Morning routine',
+    noteContent: 'Wake up, make my bed, breath fresh air, breakfast, brush my teeth, go to school.'
+  },
+  {
+    noteTitle: 'Project ideas',
+    noteContent: 'My Journal : very visual project where the user handles his notes.'
+  },
+  {
+    noteTitle: 'Groceries',
+    noteContent: 'Meat, yogurts, vegetables, Ice tea.'
+  }    
+]
 
 const App = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [selectedText, setSelectedText] = useState<number>(0);
-  /*
-  const [selectedId, setSelectedId] = useState<string | undefined >(undefined)
+
+
+const Context = createContext<KeepNote[]>(keepCards)
+
   const containerStyle: React.CSSProperties = {
-    padding: '10px',
+    margin: '30px',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
     gridTemplateRows: '1fr 1fr 1fr 1fr 1fr',
+    height: 'calc(100vh - 60px)',
+    width: 'calc(100vw - 60px)',
   }
-  */
 
-  const notesArray = [
-    {
-      id:1,
-      name: 'Todolist',
-      content: 'Pay speeding ticket, call grandma, resign gym '
-    },
-    {
-      id:2,
-      name: 'Morning routine',
-      content: 'Wake up, make my bed, breath fresh air, breakfast, brush my teeth, go to school.'
-    },
-    {
-      id:3,
-      name: 'Project ideas',
-      content: 'My Journal : very visual project where the user handles his notes.'
-    },
-    {
-      id:4,
-      name: 'Groceries',
-      content: 'Meat, yogurts, vegetables, Ice tea.'
-    }    
-  ]
   const htmlArray: any[] = [];
 
-  notesArray.forEach((note: ContentCardProps,index:number) => {
+  keepCards.forEach((note: KeepNote,index:number) => {
     htmlArray.push(<SlideshowItem key={index}><ContentCard {...note} /></SlideshowItem>)
   });
+
+  const refContainer = useRef(null);
+
   const newStyle:  React.CSSProperties = {
     width:'50%',
     margin: 'auto'
   }
   return (
-    <div style={newStyle} >
-      <button onClick={() => setSelectedText(selectedText-1)}>previous slide</button>
-      <button onClick={() => setSelectedText(selectedText+1)}>Next slide</button>
+    <div>
+      <div style={newStyle} >
+        <button onClick={() => setSelectedText(selectedText-1)}>previous slide</button>
+        <button onClick={() => setSelectedText(selectedText+1)}>Next slide</button>
 
-      {htmlArray[selectedText]}
+        {htmlArray[selectedText]}
 
-      <button onClick={ () => setIsVisible(!isVisible)}>TOGGLE</button>
-      <TestAnimate isVisible={isVisible} />
+        <button onClick={ () => setIsVisible(!isVisible)}>TOGGLE</button>
+        <TestAnimate isVisible={isVisible} />
 
-      { /*
-      <motion.div animate={{ x: '500px' }}   transition={{ duration: 3, delay:1 }}>aled</motion.div>
-      */ }
-      { /*
-      <motion.div layoutId={'1'} onClick={() => setSelectedId('1')} >
-        <KeepCard/>
-      </motion.div>
-      */}
-      {/*
-      <Card cardId={'1'} toDoOnClick={setSelectedId}></Card>
-      
-      <AnimatePresence>
-        {selectedId && (
-          <motion.div layoutId={selectedId}>
-            <KeepCard/>
-
-            <motion.button onClick={() => setSelectedId(undefined)} />
-          </motion.div>
+        { /*
+        <motion.div animate={{ x: '500px' }}   transition={{ duration: 3, delay:1 }}>aled</motion.div>
+        */ }
+      </div>
+      <Context.Provider value={keepCards}>
+      <div style={containerStyle} ref={refContainer}>
+        <AddNoteCard parentContainer={refContainer}/>
+        {keepCards.map((card) => 
+          <KeepCard parentContainer={refContainer} noteTitle={card.noteTitle} noteContent={card.noteContent} />
         )}
-      </AnimatePresence>
-      */}
-    </div>
+      </div>
+    </Context.Provider>
+  </div>
   );
 }
 

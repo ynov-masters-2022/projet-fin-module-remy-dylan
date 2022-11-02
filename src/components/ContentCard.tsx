@@ -1,10 +1,9 @@
-export type ContentCardProps = {
-    id:number,
-    name:string,
-    content:string
-}
+interface KeepNote {
+    noteTitle: string;
+    noteContent: string;
+  }
 
-export const ContentCard = ({id,name,content}: ContentCardProps) => {
+export const ContentCard = ({noteTitle,noteContent}: KeepNote) => {
     
     const style: React.CSSProperties = {
         border: '5px solid #000',
@@ -17,8 +16,8 @@ export const ContentCard = ({id,name,content}: ContentCardProps) => {
 
     return (
         <div style={style}>
-            <p>{name}</p>
-            <textarea>{content}</textarea>
+            <p>{noteTitle}</p>
+            <textarea>{noteContent}</textarea>
         </div>
     );
 }
