@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, Dispatch } from 'react';
-import { KeepNoteActions, KeepNoteType, keepReducer } from './reducers/KeepReducer';
+import { KeepNoteActions, KeepNoteType, keepReducer } from '../reducers/KeepReducer';
 
 type InitialStateType = {
     keepNote: KeepNoteType[];

@@ -5,7 +5,7 @@ import AddNoteCard from './components/AddNoteCard';
 import KeepCard from './components/KeepCard';
 import Trash from './components/Trash';
 import { AppContext, AppProvider } from './components/Context';
-import { KeepNoteType } from './components/reducers/KeepReducer';
+import { KeepNoteType } from './reducers/KeepReducer';
 
 const containerStyle: React.CSSProperties = {
   margin: '30px',
