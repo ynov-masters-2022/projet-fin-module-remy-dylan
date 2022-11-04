@@ -2,7 +2,7 @@ import DraggableCard from "./CardDraggable";
 import plusIcon from "./../assets/icons8-plus.svg";
 import { useContext } from "react";
 import { AppContext } from "./Context";
-import { Types } from "./reducers/KeepReducer";
+import { Types } from "../reducers/KeepReducer";
 
 interface IAddNoteCardProps {
     parentContainer: any;

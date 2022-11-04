@@ -4,7 +4,7 @@ import DraggableCard from "./CardDraggable";
 import { useEffect, useRef, useState  } from "react";
 import { motion, AnimatePresence} from "framer-motion";
 import { AppContext } from "./Context";
-import { KeepNoteType, Types } from "./reducers/KeepReducer";
+import { KeepNoteType, Types } from "../reducers/KeepReducer";
 
 interface PropsKeepCards {
     parentContainer: any,
