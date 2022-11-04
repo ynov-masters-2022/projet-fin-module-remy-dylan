@@ -42,7 +42,9 @@ const App = () => {
         <div 
           style={{
             gridArea: '6 / 4 / 5 / 3',
-            zIndex: 99,
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center'
           }}
           ref={refTrash}
         >
