@@ -2,9 +2,7 @@
 	background:#ff6873;
 	width: 66px;
 	height: 80px;
-	display: inline-block;
-	margin:0 auto;
-	
+	z-index:99;
 	position: relative;
 	-webkit-border-bottom-right-radius: 6px;
 	-webkit-border-bottom-left-radius: 6px;

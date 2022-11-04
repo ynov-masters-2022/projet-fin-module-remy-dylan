@@ -112,9 +112,9 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
                     <motion.div
                     key={keepNote.id + 'small'}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: {delay:1}}}
-                    exit={{ opacity: 0}}
-                    transition={{ duration: 1.5}}
+                    animate={{ opacity: 1, transition: {delay:0.5}}}
+                    exit={{ opacity: 0,height:'0px'}}
+                    transition={{ duration: 0.75}}
                     >
                         <motion.button style={{...keepCardStyle,...smallStyle}} onTap={togglePosition}>
                             <h1>{keepNote.title}</h1>
@@ -127,15 +127,14 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         }
         {
             isBig && (
-                <div style={{position:'absolute',zIndex:'100'}}>
+                <div style={{position:'absolute',zIndex:'100'}} key={keepNote.id + 'big'}>
                     <motion.div
-                    key={keepNote.id + 'big'} 
                     initial={animateInitial}
                     animate={animateBig}
                     exit={animateBigExit}
-                    transition={{ duration: 1.5}}
+                    transition={{ duration: 0.75}}
                     >
-                    <div style={{...keepCardStyle,...bigStyle}} >
+                    <div style={{...keepCardStyle,...bigStyle}}>
                         <motion.button onTap={togglePosition}>Set back to small</motion.button>
                         <h1>{keepNote.title}</h1>
                         <p>{keepNote.content}</p>
