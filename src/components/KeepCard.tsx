@@ -86,8 +86,8 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         setAnimateBig(animateTmp);
         
         const animateExitTmp = animateBigExit;
-        animateExitTmp.x = info.point.y -currentPositionTmp.y -100;
-        animateExitTmp.y = info.point.x -currentPositionTmp.x -100;
+        animateExitTmp.x = info.point.x -currentPositionTmp.x -100;
+        animateExitTmp.y = info.point.y -currentPositionTmp.y -100; 
         setAnimateBigExit(animateExitTmp);
         
     }
