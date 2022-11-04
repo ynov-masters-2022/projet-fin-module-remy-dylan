@@ -1,13 +1,14 @@
-import { motion } from "framer-motion";
+import { motion, PanInfo } from "framer-motion";
 
 interface IDraggableCardProps extends React.PropsWithChildren {
     parentContainer: any;
     cardStyle?: React.CSSProperties;
-    onClick: (event: any) => void;
-    onDragEnd: (event:any, info:any) => void;
+    onClick?: (event: any) => void;
+    onDrag?: (event: MouseEvent, info: PanInfo) => void;
+    onDragEnd?: (event: MouseEvent, info: PanInfo) => void;
 }
 
-const DraggableCard = ({ parentContainer, onClick, children, onDragEnd}: IDraggableCardProps) => {
+const DraggableCard = ({ parentContainer, cardStyle, onClick, onDrag, onDragEnd, children}: IDraggableCardProps) => {
     return (
         <motion.div
             drag
@@ -15,10 +16,8 @@ const DraggableCard = ({ parentContainer, onClick, children, onDragEnd}: IDragga
             whileTap={{ scale: 0.9 }}
             dragConstraints={parentContainer}
             onClick={onClick}
+            onDrag={onDrag}
             onDragEnd={onDragEnd}
-            // onDrag={onDragColission}
-            // dragControls={controls}
-            // dragMomentum={false}
         >
             {children}
         </motion.div>

@@ -1,65 +1,62 @@
-import { createContext, useRef } from 'react';
+import { Point } from 'framer-motion';
+import { useContext, useRef } from 'react';
 import './App.css';
 import AddNoteCard from './components/AddNoteCard';
 import KeepCard from './components/KeepCard';
-import { SlideshowItem } from './components/SlideShowItem'
-import { ContentCard} from './components/ContentCard';
+import Trash from './components/Trash';
+import { AppContext, AppProvider } from './components/Context';
+import { KeepNoteType } from './components/reducers/KeepReducer';
 
-
-interface KeepNote {
-  noteTitle: string;
-  noteContent: string;
+const containerStyle: React.CSSProperties = {
+  margin: '30px',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+  gridTemplateRows: '1fr 1fr 1fr 1fr 1fr',
+  height: 'calc(100vh - 60px)',
+  width: 'calc(100vw - 60px)',
 }
-const keepCards: KeepNote[] = [
-  {
-    noteTitle: 'Todolist',
-    noteContent: 'Pay speeding ticket, call grandma, resign gym '
-  },
-  {
-    noteTitle: 'Morning routine',
-    noteContent: 'Wake up, make my bed, breath fresh air, breakfast, brush my teeth, go to school.'
-  },
-  {
-    noteTitle: 'Project ideas',
-    noteContent: 'My Journal : very visual project where the user handles his notes.'
-  },
-  {
-    noteTitle: 'Groceries',
-    noteContent: 'Meat, yogurts, vegetables, Ice tea.'
-  }    
-]
 
 const App = () => {
-const Context = createContext<KeepNote[]>(keepCards)
+  const { state } = useContext(AppContext);
 
-  const containerStyle: React.CSSProperties = {
-    margin: '30px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-    gridTemplateRows: '1fr 1fr 1fr 1fr 1fr',
-    height: 'calc(100vh - 60px)',
-    width: 'calc(100vw - 60px)',
+  const refContainer = useRef<HTMLDivElement>(null);
+
+  const refTrash = useRef<HTMLDivElement>(null);
+
+  const isInTrash = (point: Point): boolean => {
+    let isIn = false;
+    if(refTrash.current !== undefined && refTrash.current !== null) {
+      if(point.x >= refTrash.current.offsetLeft && point.y >= refTrash.current.offsetTop
+        && point.x <= refTrash.current.offsetLeft + refTrash.current.offsetWidth
+        && point.x <= refTrash.current.offsetTop + refTrash.current.offsetHeight) {
+        isIn = true;
+      }
+    }
+
+    return isIn;
   }
 
-  const htmlArray: any[] = [];
-
-  keepCards.forEach((note: KeepNote,index:number) => {
-    htmlArray.push(<SlideshowItem key={index}><ContentCard {...note} /></SlideshowItem>)
-  });
-
-  const refContainer = useRef(null);
-
   return (
-    <div>
-      <Context.Provider value={keepCards}>
       <div style={containerStyle} ref={refContainer}>
         <AddNoteCard parentContainer={refContainer}/>
-        {keepCards.map((card) => 
-          <KeepCard parentContainer={refContainer} noteTitle={card.noteTitle} noteContent={card.noteContent} />
+        <div 
+          style={{
+            gridArea: '6 / 4 / 5 / 3',
+            zIndex: 99,
+          }}
+          ref={refTrash}
+        >
+          <Trash/>
+        </div>
+        {state.keepNote.map((card: KeepNoteType) => 
+          <KeepCard 
+            parentContainer={refContainer} 
+            keepNote={card}
+            isInTrashFn={isInTrash}
+            key={card.id}
+          />
         )}
       </div>
-    </Context.Provider>
-  </div>
   );
 }
 
