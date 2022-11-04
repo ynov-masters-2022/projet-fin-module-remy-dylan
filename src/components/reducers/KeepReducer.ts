@@ -29,7 +29,8 @@ type KeepNotePayload = {
     };
     [Types.Remove]: {
         id: string;
-    }
+    };
+    ['Test'] : undefined;
 }
 
 export type KeepNoteActions = ActionMap<KeepNotePayload>[keyof ActionMap<KeepNotePayload>];

@@ -1,10 +1,9 @@
-import { PanInfo, Point } from 'framer-motion';
-import { useContext, useRef, useState } from 'react';
+import { Point } from 'framer-motion';
+import { useContext, useRef } from 'react';
 import './App.css';
 import AddNoteCard from './components/AddNoteCard';
 import KeepCard from './components/KeepCard';
 import Trash from './components/Trash';
-import { v4 as uuidv4 } from 'uuid';
 import { AppContext, AppProvider } from './components/Context';
 import { KeepNoteType } from './components/reducers/KeepReducer';
 
@@ -38,28 +37,26 @@ const App = () => {
   }
 
   return (
-      <AppProvider>
-        <div style={containerStyle} ref={refContainer}>
-          <AddNoteCard parentContainer={refContainer}/>
-          <div 
-            style={{
-              gridArea: '6 / 4 / 5 / 3',
-              zIndex: 99,
-            }}
-            ref={refTrash}
-          >
-            <Trash/>
-          </div>
-          {state.keepNote.map((card: KeepNoteType) => 
-            <KeepCard 
-              parentContainer={refContainer} 
-              keepNote={card}
-              isInTrashFn={isInTrash}
-              key={card.id}
-            />
-          )}
+      <div style={containerStyle} ref={refContainer}>
+        <AddNoteCard parentContainer={refContainer}/>
+        <div 
+          style={{
+            gridArea: '6 / 4 / 5 / 3',
+            zIndex: 99,
+          }}
+          ref={refTrash}
+        >
+          <Trash/>
         </div>
-      </AppProvider>
+        {state.keepNote.map((card: KeepNoteType) => 
+          <KeepCard 
+            parentContainer={refContainer} 
+            keepNote={card}
+            isInTrashFn={isInTrash}
+            key={card.id}
+          />
+        )}
+      </div>
   );
 }
 

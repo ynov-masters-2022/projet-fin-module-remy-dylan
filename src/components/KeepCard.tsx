@@ -29,7 +29,7 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
 
     const handleOnDrag = (event: MouseEvent, info: PanInfo): void => {
         if(isInTrashFn(info.point)) {
-
+            
         }
     }
 
