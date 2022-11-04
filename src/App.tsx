@@ -2,7 +2,6 @@ import { createContext, useRef } from 'react';
 import './App.css';
 import AddNoteCard from './components/AddNoteCard';
 import KeepCard from './components/KeepCard';
-import { useState } from 'react';
 import { SlideshowItem } from './components/SlideShowItem'
 import { ContentCard} from './components/ContentCard';
 
@@ -31,9 +30,6 @@ const keepCards: KeepNote[] = [
 ]
 
 const App = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [selectedText, setSelectedText] = useState<number>(0);
-
 const Context = createContext<KeepNote[]>(keepCards)
 
   const containerStyle: React.CSSProperties = {
@@ -52,23 +48,6 @@ const Context = createContext<KeepNote[]>(keepCards)
   });
 
   const refContainer = useRef(null);
-  /*
-  const newStyle:  React.CSSProperties = {
-    width:'100%',
-    margin: 'auto',
-    height:'100vh'
-  }
-  <div style={newStyle}>
-    <button onClick={() => setSelectedText(selectedText-1)}>previous slide</button>
-    <button onClick={() => setSelectedText(selectedText+1)}>Next slide</button>
-
-    {htmlArray[selectedText]}
-
-    <button onClick={ () => setIsVisible(!isVisible)}>TOGGLE</button>
-    <TestAnimate isVisible={isVisible} />
-  </div>
-  */
-
 
   return (
     <div>

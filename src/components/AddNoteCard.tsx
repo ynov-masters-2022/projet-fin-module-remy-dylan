@@ -25,7 +25,7 @@ const AddNoteCard = ({ parentContainer }: IAddNoteCardProps) => {
     }
 
     return (
-        <DraggableCard parentContainer={parentContainer} onClick={handleClick} cardStyle={keepCardStyle}>
+        <DraggableCard parentContainer={parentContainer} onClick={handleClick} cardStyle={keepCardStyle} onDragEnd={() => null}>
             <img src={plusIcon} alt={"AH"} />
         </DraggableCard>
     )
