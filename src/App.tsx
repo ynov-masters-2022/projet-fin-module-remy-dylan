@@ -26,9 +26,9 @@ const App = () => {
   const isInTrash = (point: Point): boolean => {
     let isIn = false;
     if(refTrash.current !== undefined && refTrash.current !== null) {
-      if(point.x >= refTrash.current.offsetLeft && point.y >= refTrash.current.offsetTop
-        && point.x <= refTrash.current.offsetLeft + refTrash.current.offsetWidth
-        && point.x <= refTrash.current.offsetTop + refTrash.current.offsetHeight) {
+      if(point.x >= refTrash.current.offsetLeft+25 && point.y >= refTrash.current.offsetTop+25
+        && point.x <= refTrash.current.offsetLeft+25 + refTrash.current.offsetWidth+25
+        && point.x <= refTrash.current.offsetTop+25 + refTrash.current.offsetHeight+25) {
         isIn = true;
       }
     }
