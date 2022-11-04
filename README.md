@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# Présentation du projet KeepNote
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Sommaire
+1. Présentation de framer motion
+2. Présentation de TypeScript
+3. Présentation de l'API Context
+4. Présentation API context + TypeScript
 
-## Available Scripts
+## 1. Présentation de framer motion
 
-In the project directory, you can run:
+## 2. Présentation de TypeScript
+![Logo TS](https://www.tutorialsteacher.com/Content/images/home/typescript.svg)
+TypeScript est un langage de programmation visant a étendre le langage JavaScript. TypeScript comme son nom l'indique apporte un coté rassurant et utile qui manque a JS, le typage. Il permet par exemple de détecter des erreur de types a la compilation et non a l'éxécution du programme.
+## 3. Présentation de l'API Context
+L'API Context de React permet de gérer des states globales et d'éxécuter différentes action sur ces states. Plus léger et plus rapide a mettre en oeuvre qu'une structure redux.
 
-### `npm start`
+## 4. Présentation API context + TypeScript
+Sur ce projet nous avons pu mettre en place l'API context mais avec la particularité que chaque action que l'on vas dispatch sont fortement typés. A la compilation TS est capable de nous dire si ou non les bons paramètres sont passés a notre action.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Pour illustrer nous allons montrer un bout de code qui nous permet de typés nos actions.
+```Typescript
+//Ici on définis un type qui prend un autre type M.
+//M dans ce cas est un type générique.
+//Et ce type doit obligatoirement avoir la forme clé est une chaine et la valeur peu importe
+//Ensuite on dit que pour chaque clé que l'on va trouver dans notre Objet M, on va map
+//la clé puis on va lui définir une valeur en fonction de sa propre valeur
+type ActionMap<M extends { [index: string]: any }> = {
+    [Key in keyof M]: M[Key] extends undefined
+    ? {
+        type: Key;
+    }
+    : {
+        type: Key;
+        payload: M[Key];
+    }
+};    
+```
