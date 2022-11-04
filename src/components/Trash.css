@@ -4,7 +4,7 @@
 	height: 80px;
 	display: inline-block;
 	margin:0 auto;
-	
+	display:flex;
 	position: relative;
 	-webkit-border-bottom-right-radius: 6px;
 	-webkit-border-bottom-left-radius: 6px;
