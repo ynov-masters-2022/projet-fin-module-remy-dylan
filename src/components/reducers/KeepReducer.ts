@@ -48,7 +48,7 @@ export const keepReducer = (state: KeepNoteType[], action: KeepNoteActions): Kee
             ];
         case Types.Remove:
             return [
-                ...state.filter(keepNote => keepNote.id === action.payload.id),
+                ...state.filter(keepNote => keepNote.id !== action.payload.id),
             ];
         default:
             return state;
