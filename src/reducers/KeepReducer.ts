@@ -14,6 +14,7 @@ type ActionMap<M extends { [index: string]: any }> = {
 export enum Types {
     Remove = 'REMOVE_KEEPNOTE',
     Add = 'ADD_KEEPNOTE',
+    Edit = 'EDIT_KEEPNOTE',
 }
 
 export type KeepNoteType = {
@@ -30,7 +31,11 @@ type KeepNotePayload = {
     [Types.Remove]: {
         id: string;
     };
-    ['Test'] : undefined;
+    [Types.Edit]: {
+        id: string;
+        title: string;
+        content: string;
+    };
 }
 
 export type KeepNoteActions = ActionMap<KeepNotePayload>[keyof ActionMap<KeepNotePayload>];
@@ -46,6 +51,16 @@ export const keepReducer = (state: KeepNoteType[], action: KeepNoteActions): Kee
                     content: action.payload.content,
                 }
             ];
+        case Types.Edit:
+            return [
+                ...state.map(keepNote => {
+                    if(keepNote.id === action.payload.id) {
+                        keepNote.title = action.payload.title;
+                        keepNote.content = action.payload.content;
+                    }
+                    return keepNote;
+                })
+            ]
         case Types.Remove:
             return [
                 ...state.filter(keepNote => keepNote.id !== action.payload.id),
