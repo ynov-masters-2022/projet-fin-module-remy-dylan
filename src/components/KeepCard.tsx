@@ -21,6 +21,9 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
     const [animateBig, setAnimateBig] = useState({opacity:1,x:0,y:0});
     const [animateBigExit, setAnimateBigExit] = useState({opacity:0,x:0,y:0});
 
+    const [title, setTitle] = useState(keepNote.title);
+    const [content, setContent] = useState(keepNote.content);
+
     const keepCardStyle: React.CSSProperties = {
         border: '5px solid #000',
         borderRadius: '40px',
@@ -39,6 +42,24 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         width:`${bigCardWidth}px`,
     }
 
+    const titleStyle: React.CSSProperties = {
+        backgroundColor: '#d3d3d3',
+        fontSize:'25px',
+        border:'1px solid #000',
+        margin: '5px 0px',
+        width:'80%',
+    }
+
+    const contentStyle: React.CSSProperties = {
+        backgroundColor: '#d3d3d3',
+        fontSize:'18px',
+        border:'1px solid #000',
+        margin: '10px 0px',
+        width:'80%',
+        height:'80%',
+        resize: 'none'
+    }
+
     const getPosition = () => {
         const currentPositionTmp = cardRef.current.getBoundingClientRect();
         let xTmp = window.innerWidth/2 -200 - currentPositionTmp.x ;
@@ -48,6 +69,17 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
 
     function togglePosition(){
         setIsBig(!isBig);
+    }
+
+    const handleChange = (): void => {
+        dispatch({
+            type: Types.Edit,
+            payload: {
+                id: keepNote.id,
+                title: title,
+                content: content,
+            },
+        });
     }
 
     const handleOnDragEnd = (event: MouseEvent, info: PanInfo): void => {
@@ -124,8 +156,15 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
                     >
                         <div style={{...keepCardStyle,...bigStyle}}>
                             <motion.button style={{position:'absolute',right:'25px'}} onTap={togglePosition}>Reduce</motion.button>
-                            <h1>{keepNote.title}</h1>
-                            <p>{keepNote.content}</p>
+                            <input type="text" style={titleStyle} value={title} onChange={(e) => {
+                                setTitle(e.target.value);
+                                handleChange();
+                            }}/>
+                            <textarea style={contentStyle} value={content} onChange={(e) => {
+                                setContent(e.target.value)
+                                handleChange();
+                            }}/>
+                            
                         </div>
                     </motion.div>
                 </div>
