@@ -21,10 +21,6 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
     const [animateBig, setAnimateBig] = useState({opacity:1,x:0,y:0});
     const [animateBigExit, setAnimateBigExit] = useState({opacity:0,x:0,y:0});
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-        console.log('KEEP')
-    }
-
     const keepCardStyle: React.CSSProperties = {
         border: '5px solid #000',
         borderRadius: '40px',
@@ -42,7 +38,6 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         height:'400px',
         width:`${bigCardWidth}px`,
     }
-
 
     const getPosition = () => {
         const currentPositionTmp = cardRef.current.getBoundingClientRect();
@@ -66,14 +61,13 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
             });
         }
 
-
         const currentPositionTmp = cardRef.current.getBoundingClientRect();
         setAnimateInitial({ opacity: 0,x: info.point.x -currentPositionTmp.x -200,y: info.point.y -currentPositionTmp.y -200});
         /*
         info.point.x // x après déplacement
         info.point.y // y après déplacement
-        animateBig.x // x de base
-        animateBig.y // y de base
+        animateBig.x // x de création
+        animateBig.y // y de création
         xTmp = différence info.point.x & window.innerWidth/2-200 
         */
 
@@ -92,12 +86,6 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         
     }
 
-    const handleOnDrag = (event: MouseEvent, info: PanInfo): void => {
-        if(isInTrashFn(info.point)) {
-            
-        }
-    }
-
     useEffect(() => {
         getPosition();
     }, []);
@@ -108,7 +96,7 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
         {
             !isBig && (
                 <div ref={cardRef}>
-                <DraggableCard parentContainer={parentContainer} onClick={handleClick} onDrag={handleOnDrag} onDragEnd={handleOnDragEnd}>
+                <DraggableCard parentContainer={parentContainer} onDragEnd={handleOnDragEnd}>
                     <motion.div
                     key={keepNote.id + 'small'}
                     initial={{ opacity: 0 }}
@@ -134,11 +122,11 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
                     exit={animateBigExit}
                     transition={{ duration: 0.75}}
                     >
-                    <div style={{...keepCardStyle,...bigStyle}}>
-                        <motion.button onTap={togglePosition}>Set back to small</motion.button>
-                        <h1>{keepNote.title}</h1>
-                        <p>{keepNote.content}</p>
-                    </div>
+                        <div style={{...keepCardStyle,...bigStyle}}>
+                            <motion.button style={{position:'absolute',right:'25px'}} onTap={togglePosition}>Reduce</motion.button>
+                            <h1>{keepNote.title}</h1>
+                            <p>{keepNote.content}</p>
+                        </div>
                     </motion.div>
                 </div>
             )
