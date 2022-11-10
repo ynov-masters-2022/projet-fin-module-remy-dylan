@@ -8,7 +8,7 @@ interface IDraggableCardProps extends React.PropsWithChildren {
     onDragEnd?: (event: MouseEvent, info: PanInfo) => void;
 }
 
-const DraggableCard = ({ parentContainer, cardStyle, onClick, onDrag, onDragEnd, children}: IDraggableCardProps) => {
+const DraggableCard = ({ parentContainer, onClick, onDrag, onDragEnd, children}: IDraggableCardProps) => {
     return (
         <motion.div
             drag

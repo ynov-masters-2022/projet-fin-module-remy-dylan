@@ -95,13 +95,6 @@ const KeepCard = ({ parentContainer, keepNote, isInTrashFn }: PropsKeepCards) =>
 
         const currentPositionTmp = cardRef.current.getBoundingClientRect();
         setAnimateInitial({ opacity: 0,x: info.point.x -currentPositionTmp.x -200,y: info.point.y -currentPositionTmp.y -200});
-        /*
-        info.point.x // x après déplacement
-        info.point.y // y après déplacement
-        animateBig.x // x de création
-        animateBig.y // y de création
-        xTmp = différence info.point.x & window.innerWidth/2-200 
-        */
 
         let xTmp = info.point.x > window.innerWidth/2 ? (info.point.x - window.innerWidth/2) : (window.innerWidth/2 - info.point.x) ;
         let Ytmp = info.point.y > window.innerHeight/2 ? (info.point.y - window.innerHeight/2) : (window.innerHeight/2 - info.point.y) ; 
